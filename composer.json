@@ -6,7 +6,8 @@
 		"ikimea/browser": "~1.0",
 		"laracasts/presenter": "~0.1",
 		"guzzlehttp/guzzle": "~4.0",
-		"zizaco/entrust": "1.2.*"
+		"zizaco/entrust": "1.2.*",
+		"forxer/Gravatar": "~1.2"
 	},
 
 	"require-dev": {
