@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Forums
+        psr4_prefix: Forums
+        src_path: app
