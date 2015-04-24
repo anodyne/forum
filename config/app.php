@@ -139,6 +139,8 @@ return [
 		/*
 		 * Application Service Providers...
 		 */
+		'Collective\Html\HtmlServiceProvider',
+		'Zizaco\Entrust\EntrustServiceProvider',
 		'Forums\Providers\AppServiceProvider',
 		'Forums\Providers\BusServiceProvider',
 		'Forums\Providers\ConfigServiceProvider',
@@ -192,6 +194,14 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+
+		'Date'		=> 'Carbon\Carbon',
+		'Flash'		=> 'Forums\Services\FlashNotifierFacade',
+		'Form'		=> 'Collective\Html\FormFacade',
+		'HTML'		=> 'Collective\Html\HtmlFacade',
+		'Markdown'	=> 'Forums\Services\MarkdownParserFacade',
+		'Model'		=> 'Illuminate\Database\Eloquent\Model',
+		'Str'		=> 'Illuminate\Support\Str',
 
 	],
 
