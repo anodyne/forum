@@ -203,6 +203,26 @@ return [
 		'Model'		=> 'Illuminate\Database\Eloquent\Model',
 		'Str'		=> 'Illuminate\Support\Str',
 
+		'Conversation'		=> 'Forums\Data\Conversation',
+		'ConversationState'	=> 'Forums\Data\ConversationState',
+		'Permission'		=> 'Forums\Data\Permission',
+		'Post'				=> 'Forums\Data\Post',
+		'Role'				=> 'Forums\Data\Role',
+		'Topic'				=> 'Forums\Data\Topic',
+		'User'				=> 'Forums\Data\User',
+
+		'ConversationRepositoryInterface' => 'Forums\Data\Interfaces\ConversationRepositoryInterface',
+		'ConversationStateRepositoryInterface' => 'Forums\Data\Interfaces\ConversationStateRepositoryInterface',
+		'PostRepositoryInterface' => 'Forums\Data\Interfaces\PostRepositoryInterface',
+		'TopicRepositoryInterface' => 'Forums\Data\Interfaces\TopicRepositoryInterface',
+		'UserRepositoryInterface' => 'Forums\Data\Interfaces\UserRepositoryInterface',
+
+		'ConversationRepository' => 'Forums\Data\Repositories\ConversationRepository',
+		'ConversationStateRepository' => 'Forums\Data\Repositories\ConversationStateRepository',
+		'PostRepository' => 'Forums\Data\Repositories\PostRepository',
+		'TopicRepository' => 'Forums\Data\Repositories\TopicRepository',
+		'UserRepository' => 'Forums\Data\Repositories\UserRepository',
+
 	],
 
 ];

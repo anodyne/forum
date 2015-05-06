@@ -7,7 +7,7 @@ return [
 		'address'	=> 'contact@anodyne-productions.com',
 		'name'		=> 'Anodyne Productions',
 
-		'subject'	=> "[Anodyne Help Center]",
+		'subject'	=> "[Anodyne Forums]",
 
 		'admin'		=> 'admin@anodyne-productions.com',
 

@@ -1,4 +1,4 @@
-<?php namespace Help\Data;
+<?php namespace Forums\Data;
 
 use Zizaco\Entrust\EntrustRole;
 

@@ -1,9 +1,6 @@
 <?php namespace Forums\Data;
 
-use Date,
-	Model,
-	Config,
-	SoftDeletingTrait;
+use Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -20,7 +17,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	protected $table = 'users';
 
-	protected $fillable = ['remember_token'];
+	protected $fillable = ['points'];
 
 	protected $hidden = ['password', 'remember_token'];
 
@@ -28,17 +25,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	protected $presenter = 'Forums\Data\Presenters\UserPresenter';
 
-	public static $sanitizeRules = [
-		'remember_token' => 'string',
-	];
-
 	/*
 	|--------------------------------------------------------------------------
 	| Relationships
 	|--------------------------------------------------------------------------
 	*/
 
-	//
+	public function conversations()
+	{
+		return $this->hasMany('Conversation', 'user_id');
+	}
+
+	public function posts()
+	{
+		return $this->hasMany('Post', 'user_id');
+	}
 
 	/*
 	|--------------------------------------------------------------------------

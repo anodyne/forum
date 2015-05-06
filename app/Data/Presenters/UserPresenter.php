@@ -22,44 +22,9 @@ class UserPresenter extends Presenter {
 		return view('partials.image')->with($mergedOptions);
 	}
 
-	public function bio()
-	{
-		return Markdown::parse($this->entity->bio);
-	}
-
 	public function email()
 	{
 		return $this->entity->email;
-	}
-
-	public function facebook()
-	{
-		return $this->entity->facebook;
-	}
-
-	public function facebookBtn($classes = 'btn btn-default')
-	{
-		if ( ! empty($this->entity->facebook))
-		{
-			return link_to($this->entity->facebook, "Facebook", ['class' => $classes, 'target' => '_blank']);
-		}
-
-		return false;
-	}
-
-	public function google()
-	{
-		return $this->entity->google;
-	}
-
-	public function googleBtn($classes = 'btn btn-default')
-	{
-		if ( ! empty($this->entity->google))
-		{
-			return link_to($this->entity->google, "Google+", ['class' => $classes, 'target' => '_blank']);
-		}
-
-		return false;
 	}
 
 	public function name()
@@ -67,29 +32,14 @@ class UserPresenter extends Presenter {
 		return $this->entity->name;
 	}
 
-	public function siteBtn($classes = 'btn btn-default')
+	public function points()
 	{
-		if ( ! empty($this->entity->url))
-		{
-			return link_to($this->entity->url, "Author's Website", ['class' => $classes, 'target' => '_blank']);
-		}
-
-		return false;
+		return number_format($this->entity->points);
 	}
 
-	public function twitter()
+	public function signature()
 	{
-		return $this->entity->twitter;
-	}
-
-	public function twitterBtn($classes = 'btn btn-default')
-	{
-		if ( ! empty($this->entity->twitter))
-		{
-			return link_to('http://twitter.com/'.str_replace('@', '', $this->entity->twitter), 'Twitter', ['class' => $classes, 'target' => '_blank']);
-		}
-
-		return false;
+		return $this->entity->signature;
 	}
 
 }
