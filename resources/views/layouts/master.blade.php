@@ -34,11 +34,11 @@
 						<div class="col-xs-12 col-md-8">
 							<nav class="nav-sub">
 								<ul>
-									<li><a href="{{ route('home') }}">Home</a></li>
-									<li><a href="{{ route('topics') }}">Topics</a></li>
+									<li><a href="{{ route('home') }}">All Discussions</a></li>
+									<li><a href="{{ route('topics') }}">All Topics</a></li>
 
 									@if (Auth::check())
-										<li><a href="#">My Conversations</a></li>
+										<li><a href="#">My Discussions</a></li>
 									@endif
 									
 									<li><a href="#">Advanced Search</a></li>
