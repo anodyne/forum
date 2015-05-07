@@ -17,22 +17,32 @@ class TopicController extends Controller {
 
 	public function index()
 	{
+		// Get all the parent topics for the sidebar
+		$allTopics = $this->repo->allParents();
+
 		// Get all the topics
 		$topics = $this->repo->all();
 
-		return view('pages.topics.all', compact('topics'));
+		return view('pages.topics.all', compact('topics', 'allTopics'));
 	}
 
 	public function show($slug)
 	{
 		// Get the topic
-		$topic = $this->repo->getFirstBy($topic, $slug);
+		$topic = $this->repo->getTopicBySlug($slug);
 
 		if ($topic)
 		{
-			$conversations = [];
+			// Grab the parent topic
+			$parent = $this->repo->getParentTopic($topic);
 
-			return view('pages.topics.show', compact('topic', 'conversations'));
+			// Grab any children topics
+			$children = $this->repo->getChildrenTopics($topic);
+
+			// Pull the discussions out of the topic
+			$discussions = $this->repo->getDiscussions($topic);
+
+			return view('pages.topics.show', compact('topic', 'discussions', 'children', 'parent'));
 		}
 
 		return $this->errorNotFound("No such topic exists!");

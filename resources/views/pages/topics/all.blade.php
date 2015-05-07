@@ -7,18 +7,22 @@
 @section('content')
 	<h1>All Topics</h1>
 
-	<div class="data-list">
-	@foreach ($topics as $topic)
-		<div class="row">
-			<div class="col-md-10">
-				<p class="list-item-title updated">{!! $topic->present()->nameAsLink !!}</p>
-				<span class="list-item-meta">{!! $topic->present()->description !!}</span>
-				<p class="list-item-meta">{!! $topic->present()->lastUpdate !!}</p>
-			</div>
-			<div class="col-md-2">
-				{!! $topic->present()->conversationCount !!}
-			</div>
+	<div class="row">
+		<div class="col-md-4 col-lg-3">
+			{!! partial('forum-controls', ['topics' => $allTopics, 'includeAllDiscussionsLink' => true, 'includeAllTopicsLink' => false]) !!}
 		</div>
-	@endforeach
+
+		<div class="col-md-8 col-lg-9">
+			{!! partial('topics-list', ['topics' => $topics]) !!}
+		</div>
 	</div>
+@stop
+
+@section('modals')
+	@if ($_currentUser)
+		{!! modal(['id' => 'newDiscussion', 'header' => "Start a Discussion"]) !!}
+	@endif
+@stop
+
+@section('scripts')
 @stop

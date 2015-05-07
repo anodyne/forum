@@ -19,6 +19,7 @@ class CreateTopicsTables extends Migration {
 			$table->string('slug');
 			$table->string('color');
 			$table->text('description')->nullable();
+			$table->integer('parent_id')->unsigned()->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -39,9 +40,15 @@ class CreateTopicsTables extends Migration {
 	protected function populateData()
 	{
 		$data = [
-			['name' => "General", 'slug' => "", 'color' => "#607d8b", 'icon' => ""],
-			['name' => "Nova", 'slug' => "", 'color' => "#259b24", 'icon' => ""],
-			['name' => "Announcements", 'slug' => "", 'color' => "#0288d1", 'icon' => ""],
+			['name' => "Nova", 'slug' => "nova-general", 'color' => "#259b24", 'description' => ""],
+			['name' => "Anodyne Lounge", 'slug' => "", 'color' => "#607d8b", 'description' => ""],
+			['name' => "AnodyneXtras", 'slug' => "xtras", 'color' => "#d81b60", 'description' => ""],
+			['name' => "Help Center", 'slug' => "", 'color' => "#0288d1", 'description' => ""],
+			
+			['name' => "Article Discussions", 'slug' => "help-center-articles", 'color' => "#0288d1", 'description' => "", 'parent_id' => 4],
+			['name' => "Announcements", 'slug' => "", 'color' => "#607d8b", 'description' => "", 'parent_id' => 2],
+			['name' => "Help", 'slug' => "nova-help", 'color' => "#259b24", 'description' => "", 'parent_id' => 1],
+			['name' => "Skinning", 'slug' => "nova-skinning", 'color' => "#259b24", 'description' => "", 'parent_id' => 1],
 		];
 
 		foreach ($data as $d)

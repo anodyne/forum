@@ -10,7 +10,7 @@ class Topic extends Model {
 
 	protected $table = 'topics';
 
-	protected $fillable = ['name', 'slug', 'color', 'icon', 'description'];
+	protected $fillable = ['name', 'slug', 'color', 'description', 'parent_id'];
 
 	protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
@@ -35,9 +35,19 @@ class Topic extends Model {
 	|---------------------------------------------------------------------------
 	*/
 
-	public function conversations()
+	public function children()
 	{
-		return $this->hasMany('Conversation');
+		return $this->hasMany('Topic', 'parent_id', 'id');
+	}
+
+	public function discussions()
+	{
+		return $this->hasMany('Discussion');
+	}
+
+	public function parent()
+	{
+		return $this->belongsTo('Topic', 'parent_id');
 	}
 
 	/*
@@ -45,6 +55,11 @@ class Topic extends Model {
 	| Model Scopes
 	|---------------------------------------------------------------------------
 	*/
+
+	public function scopeParents($query)
+	{
+		$query->where('parent_id', null);
+	}
 
 	public function scopeSlug($query, $slug)
 	{
