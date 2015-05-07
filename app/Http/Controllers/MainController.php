@@ -1,6 +1,9 @@
 <?php namespace Forums\Http\Controllers;
 
-use Topic, Conversation;
+use Topic,
+	Discussion,
+	TopicRepositoryInterface,
+	DiscussionRepositoryInterface;
 use Forums\Http\Requests,
 	Forums\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,35 +12,23 @@ class MainController extends Controller {
 
 	protected $repo;
 
-	public function __construct()
+	public function __construct(DiscussionRepositoryInterface $repo)
 	{
 		parent::__construct();
+
+		$this->repo = $repo;
 	}
 
-	public function index()
+	public function index(TopicRepositoryInterface $topicsRepo)
 	{
-		$conversations = Conversation::with('posts', 'posts.author', 'topic', 'author')->get();
+		// Get all the parent topics for the sidebar
+		$topics = $topicsRepo->allParents();
 
-		return view('pages.main', compact('conversations'));
-	}
+		$discussions = Discussion::with('posts', 'posts.author', 'topic', 'topic.parent', 'author')
+			->orderBy('updated_at', 'desc')
+			->get();
 
-	public function allTopics()
-	{
-		# code...
-	}
-
-	public function topic($slug)
-	{
-		// Get the topic
-		$topic = Topic::with('conversations', 'conversations.posts', 'conversations.posts.author')
-			->slug($slug)->first();
-
-		return view('pages.topic', compact('topic'));
-	}
-
-	public function conversation($topicSlug, $conversationId)
-	{
-		return view('pages.conversation');
+		return view('pages.main', compact('discussions', 'topics'));
 	}
 
 }
