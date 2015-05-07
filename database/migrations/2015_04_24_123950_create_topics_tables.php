@@ -18,7 +18,6 @@ class CreateTopicsTables extends Migration {
 			$table->string('name');
 			$table->string('slug');
 			$table->string('color');
-			$table->string('icon');
 			$table->text('description')->nullable();
 			$table->timestamps();
 			$table->softDeletes();

@@ -198,6 +198,7 @@ return [
 		'Date'		=> 'Carbon\Carbon',
 		'Flash'		=> 'Forums\Services\FlashNotifierFacade',
 		'Form'		=> 'Collective\Html\FormFacade',
+		'Gravatar'	=> 'forxer\Gravatar\Gravatar',
 		'HTML'		=> 'Collective\Html\HtmlFacade',
 		'Markdown'	=> 'Forums\Services\MarkdownParserFacade',
 		'Model'		=> 'Illuminate\Database\Eloquent\Model',

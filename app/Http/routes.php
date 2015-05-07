@@ -4,6 +4,17 @@ Route::get('/', [
 	'as'	=> 'home',
 	'uses'	=> 'MainController@index']);
 
+Route::get('topics', [
+	'as'	=> 'topics',
+	'uses'	=> 'TopicController@index']);
+Route::get('topic/{slug}', [
+	'as'	=> 'topic',
+	'uses'	=> 'TopicController@show']);
+
+Route::get('conversation/{topicSlug}/{conversationId}', [
+	'as'	=> 'conversation',
+	'uses'	=> 'MainController@conversation']);
+
 Route::get('login', [
 	'as'	=> 'login',
 	'uses'	=> 'LoginController@index']);

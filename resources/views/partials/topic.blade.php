@@ -1,1 +1,1 @@
-<span class="label" style="background-color:{{ $color }}">{!! $content !!}</span>
+<span class="label" style="background-color:{{ $color }}"><a href="{{ route('topic', [$slug]) }}">{!! $content !!}</a></span>

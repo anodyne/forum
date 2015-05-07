@@ -838,6 +838,7 @@ form {
 .avatar {
 	height: 100px;
 	width: 100px;
+	display: block;
 
 	background-color: transparent;
 	background-repeat: no-repeat;
@@ -1114,12 +1115,142 @@ hr.partial-split {
 	display: none !important;
 }
 
-.article-block {
-	.article-title {
+.data-list {
+	.row {
+		margin-bottom: @spacing-lg;
+	}
+
+	.list-item-title {
+		margin-bottom: 0;
 		display: block;
-		
-		font-family: @font-special;
+
 		font-size: @font-size-md;
+		font-weight: 400;
+		color: @color-gray-medium;
+
+		&.updated {
+			font-weight: 600;
+			color: @color-dark;
+		}
+	}
+
+	.list-item-meta {
+		font-size: @font-size-sm;
+		font-weight: 400;
+		color: @color-gray-medium;
+
+		a {
+			font-weight: 600;
+			color: @color-gray-medium;
+
+			&:hover {
+				color: @color-gray-medium;
+			}
+		}
+	}
+
+	.list-item-answered {
+		position: relative;
+		display: inline-block;
+		float: left;
+		margin: 9px @spacing-sm 0 0;
+		width: 12px;
+		height: 12px;
+
+		background-color: @color-success;
+
+		.rounded(12px);
+	}
+
+	.list-item-group {
+		margin-left: 67px;
+
+		.list-item-meta {
+			padding: 0 0 0 @spacing-sm;
+		}
+	}
+
+	.list-item-avatar {
+		position: relative;
+		float: left;
+		width: 50px;
+		height: 50px;
+		margin: 10px @spacing 0 0;
+	}
+
+	.list-item-count {
+		margin-bottom: 0;
+		line-height: 1;
+
+		text-align: center;
+		font-size: @font-size-xl;
 		font-weight: 600;
+		color: @color-dark;
+	}
+
+	.list-item-count-label {
+		margin-bottom: 0;
+
+		text-align: center;
+		font-size: @font-size-sm;
+		color: @color-gray-medium;
 	}
 }
+
+/*.thread-avatar {
+	position: relative;
+	float: left;
+	width: 50px;
+	height: 50px;
+	margin: 10px @spacing 0 0;
+}
+
+.thread-info {
+	margin-left: 67px;
+
+	.thread-title {
+		margin-bottom: 0;
+		display: block;
+
+		font-size: @font-size-md;
+		font-weight: 400;
+		color: @color-gray-medium;
+
+		&.updated {
+			font-weight: 600;
+			color: @color-dark;
+		}
+	}
+
+	.thread-answered {
+		position: relative;
+		display: inline-block;
+		float: left;
+		margin: 9px @spacing-sm 0 0;
+		width: 12px;
+		height: 12px;
+
+		background-color: @color-success;
+
+		.rounded(12px);
+	}
+
+	.thread-meta {
+		padding: 0 0 0 @spacing-sm;
+	}
+}
+
+.thread-meta {
+	font-size: @font-size-sm;
+	font-weight: 300;
+	color: @color-gray-medium;
+
+	a {
+		font-weight: 600;
+		color: @color-gray-medium;
+
+		&:hover {
+			color: @color-gray-medium;
+		}
+	}
+}*/

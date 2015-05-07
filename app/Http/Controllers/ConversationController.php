@@ -1,5 +1,6 @@
 <?php namespace Forums\Http\Controllers;
 
+use ConversationRepositoryInterface;
 use Forums\Http\Requests;
 use Illuminate\Http\Request;
 

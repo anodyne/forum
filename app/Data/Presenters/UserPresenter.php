@@ -11,7 +11,7 @@ class UserPresenter extends Presenter {
 		// Figure out the default image
 		$defaultImage = (app('env') != 'local') 
 			? urlencode(asset('images/avatars/no-avatar.jpg')) 
-			: 'retro' ;
+			: 'retro';
 
 		// Build the URL for the avatar
 		$url = Gravatar::image($this->entity->email, 500)."&r=pg&d={$defaultImage}";
