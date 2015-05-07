@@ -31,9 +31,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	|--------------------------------------------------------------------------
 	*/
 
-	public function conversations()
+	public function discussions()
 	{
-		return $this->hasMany('Conversation', 'user_id');
+		return $this->hasMany('Discussion', 'user_id');
 	}
 
 	public function posts()

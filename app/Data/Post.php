@@ -10,11 +10,11 @@ class Post extends Model {
 
 	protected $table = 'posts';
 
-	protected $fillable = ['conversation_id', 'user_id', 'content'];
+	protected $fillable = ['discussion_id', 'user_id', 'content'];
 
 	protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-	protected $touches = ['conversation'];
+	protected $touches = ['discussion'];
 
 	protected $presenter = 'Forms\Data\Presenters\PostPresenter';
 
@@ -29,9 +29,9 @@ class Post extends Model {
 		return $this->belongsTo('User', 'user_id');
 	}
 
-	public function conversation()
+	public function discussion()
 	{
-		return $this->belongsTo('Conversation');
+		return $this->belongsTo('Discussion');
 	}
 
 }

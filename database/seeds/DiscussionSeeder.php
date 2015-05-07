@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
-class ConversationSeeder extends Seeder {
+class DiscussionSeeder extends Seeder {
 
-	public static $number = 25;
+	public static $number = 100;
 
 	/**
 	 * Run the database seeds.
@@ -17,9 +17,9 @@ class ConversationSeeder extends Seeder {
 
 		for ($i = 0; $i < static::$number; $i++)
 		{
-			Conversation::create([
+			Discussion::create([
 				'user_id' => $faker->numberBetween(1, 2),
-				'topic_id' => $faker->numberBetween(1, 3),
+				'topic_id' => $faker->numberBetween(1, 8),
 				'title' => ucwords(implode(' ', $faker->words($faker->numberBetween(3, 10)))),
 				'slug' => '',
 			]);

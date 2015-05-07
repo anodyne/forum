@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConversationsTables extends Migration {
+class CreateDiscussionsTables extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateConversationsTables extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('conversations', function(Blueprint $table)
+		Schema::create('discussions', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
 			$table->integer('topic_id')->unsigned();
@@ -24,10 +24,10 @@ class CreateConversationsTables extends Migration {
 			$table->softDeletes();
 		});
 
-		Schema::create('conversations_states', function(Blueprint $table)
+		Schema::create('discussions_states', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
-			$table->bigInteger('conversation_id')->unsigned();
+			$table->bigInteger('discussion_id')->unsigned();
 			$table->integer('user_id')->unsigned();
 			$table->datetime('last_visited');
 		});
@@ -40,8 +40,8 @@ class CreateConversationsTables extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('conversations');
-		Schema::dropIfExists('conversations_states');
+		Schema::dropIfExists('discussions');
+		Schema::dropIfExists('discussions_states');
 	}
 
 }

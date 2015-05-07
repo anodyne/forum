@@ -3,7 +3,7 @@
 use Str, Auth;
 use Laracasts\Presenter\Presenter;
 
-class ConversationPresenter extends Presenter {
+class DiscussionPresenter extends Presenter {
 
 	public function authorAvatar($linkToProfile = true)
 	{
@@ -25,7 +25,7 @@ class ConversationPresenter extends Presenter {
 
 	public function replyCount()
 	{
-		return partial('count', [
+		return partial('item-count', [
 			'count'	=> $this->entity->posts->count() - 1,
 			'label' => Str::plural('reply', ($this->entity->posts->count() - 1)),
 		]);

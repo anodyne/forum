@@ -4,17 +4,17 @@ use Str, Auth, Model;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Conversation extends Model {
+class Discussion extends Model {
 
 	use SoftDeletes, PresentableTrait;
 
-	protected $table = 'conversations';
+	protected $table = 'discussions';
 
 	protected $fillable = ['title', 'slug', 'answer_id', 'topic_id', 'user_id'];
 
 	protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-	protected $presenter = 'Forums\Data\Presenters\ConversationPresenter';
+	protected $presenter = 'Forums\Data\Presenters\DiscussionPresenter';
 
 	/*
 	|---------------------------------------------------------------------------
@@ -47,7 +47,7 @@ class Conversation extends Model {
 
 	public function stateForUser()
 	{
-		return $this->hasOne('ConversationState')->where('user_id', Auth::id());
+		return $this->hasOne('DiscussionState')->where('user_id', Auth::id());
 	}
 
 	public function topic()

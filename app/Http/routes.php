@@ -11,9 +11,9 @@ Route::get('topic/{slug}', [
 	'as'	=> 'topic',
 	'uses'	=> 'TopicController@show']);
 
-Route::get('conversation/{topicSlug}/{conversationId}', [
-	'as'	=> 'conversation',
-	'uses'	=> 'MainController@conversation']);
+Route::get('discussion/{topicSlug}/{discussionId}', [
+	'as'	=> 'discussion',
+	'uses'	=> 'DiscussionController@show']);
 
 Route::get('login', [
 	'as'	=> 'login',
