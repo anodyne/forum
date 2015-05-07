@@ -236,6 +236,7 @@ section {
 
 	h1 {
 		margin-top: 0;
+		margin-bottom: @spacing;
 
 		font-family: @font-titles;
 		font-weight: 700;
@@ -1118,6 +1119,10 @@ hr.partial-split {
 .data-list {
 	.row {
 		margin-bottom: @spacing-lg;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 
 	.list-item-title {
@@ -1197,60 +1202,18 @@ hr.partial-split {
 	}
 }
 
-/*.thread-avatar {
-	position: relative;
-	float: left;
-	width: 50px;
-	height: 50px;
-	margin: 10px @spacing 0 0;
-}
+.forum-controls {
+	.list-group {
+		.rounded(@border-radius);
 
-.thread-info {
-	margin-left: 67px;
-
-	.thread-title {
-		margin-bottom: 0;
-		display: block;
-
-		font-size: @font-size-md;
-		font-weight: 400;
-		color: @color-gray-medium;
-
-		&.updated {
+		.list-group-item {
+			font-size: @font-size-sm;
 			font-weight: 600;
-			color: @color-dark;
+
+			em {
+				font-size: @font-size-xs;
+				font-weight: 400;
+			}
 		}
-	}
-
-	.thread-answered {
-		position: relative;
-		display: inline-block;
-		float: left;
-		margin: 9px @spacing-sm 0 0;
-		width: 12px;
-		height: 12px;
-
-		background-color: @color-success;
-
-		.rounded(12px);
-	}
-
-	.thread-meta {
-		padding: 0 0 0 @spacing-sm;
 	}
 }
-
-.thread-meta {
-	font-size: @font-size-sm;
-	font-weight: 300;
-	color: @color-gray-medium;
-
-	a {
-		font-weight: 600;
-		color: @color-gray-medium;
-
-		&:hover {
-			color: @color-gray-medium;
-		}
-	}
-}*/
