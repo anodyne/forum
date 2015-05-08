@@ -1217,3 +1217,25 @@ hr.partial-split {
 		}
 	}
 }
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+	background-color: @color-primary;
+	font-family: @font-special;
+	font-weight: 500;
+	border-color: @color-primary;
+}
+
+.pagination > li > a, .pagination > li > span {
+	color: @color-primary;
+	font-family: @font-special;
+	font-weight: 500;
+
+	&:hover {
+		color: @color-primary-light;
+	}
+}
