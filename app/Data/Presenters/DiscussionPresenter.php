@@ -36,7 +36,7 @@ class DiscussionPresenter extends Presenter {
 		return $this->entity->topic->present()->nameAsLabel;
 	}
 
-	public function updated()
+	public function updatedAt()
 	{
 		return "Updated ".$this->entity->updated_at->diffForHumans();
 	}
