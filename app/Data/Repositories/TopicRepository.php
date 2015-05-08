@@ -1,7 +1,9 @@
 <?php namespace Forums\Data\Repositories;
 
+use stdClass;
 use Topic as Model,
 	TopicRepositoryInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TopicRepository extends BaseRepository implements TopicRepositoryInterface {
 
@@ -21,33 +23,58 @@ class TopicRepository extends BaseRepository implements TopicRepositoryInterface
 		return $query->get();
 	}
 
-	public function allParents()
+	public function allParents(array $with = [])
 	{
-		$query = $this->make(['children', 'children.parent']);
+		$query = (count($with) == 0)
+			? $this->make(['children', 'children.parent'])
+			: $this->make($with);
 
 		return $query->parents()->orderBy('name')->get();
 	}
 
 	public function getChildrenTopics(Model $model)
 	{
-		return $model->children;
+		if ($model->children)
+		{
+			return $model->children
+				->load('parent', 'discussions', 'discussions.posts', 'discussions.posts.author');
+		}
+
+		return null;
 	}
 
 	public function getDiscussions(Model $model)
 	{
-		return $model->discussions;
+		return $model->discussions->load('posts', 'posts.author', 'topic', 'author');
 	}
 
 	public function getParentTopic(Model $model)
 	{
-		return $model->parent;
+		if ($model->parent)
+		{
+			return $model->parent->load('discussions.posts', 'discussions.posts.author');
+		}
+
+		return null;
 	}
 
 	public function getTopicBySlug($slug)
 	{
-		return $this->getFirstBy('slug', $slug, [
-			'discussions', 'discussions.posts', 'discussions.posts.author', 'children', 'parent', 'children.discussions', 'children.discussions.posts', 'children.discussions.posts.author'
-		]);
+		return $this->getFirstBy('slug', $slug, ['discussions', 'parent', 'children']);
+	}
+
+	public function paginateDiscussions(Model $model, $page = 1, $perPage = 25)
+	{
+		// Get the discussions
+		$discussions = $this->getDiscussions($model);
+
+		// Build the offset
+		$offset = ($page * $perPage) - $perPage;
+
+		// Get the items for the current page
+		$itemsForCurrentPage = $discussions->slice($offset, $perPage);
+
+		return new LengthAwarePaginator($itemsForCurrentPage, $discussions->count(), $perPage, $page);
 	}
 
 }

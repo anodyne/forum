@@ -3,6 +3,7 @@
 use TopicRepositoryInterface;
 use Forums\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TopicController extends Controller {
 
@@ -17,16 +18,13 @@ class TopicController extends Controller {
 
 	public function index()
 	{
-		// Get all the parent topics for the sidebar
-		$allTopics = $this->repo->allParents();
+		// Get all the parent topics
+		$topics = $this->repo->allParents(['discussions', 'discussions.posts', 'discussions.posts.author', 'children', 'children.discussions', 'children.discussions.posts', 'children.discussions.posts.author', 'children.parent']);
 
-		// Get all the topics
-		$topics = $this->repo->all();
-
-		return view('pages.topics.all', compact('topics', 'allTopics'));
+		return view('pages.topics.all', compact('topics'));
 	}
 
-	public function show($slug)
+	public function show(Request $request, $slug)
 	{
 		// Get the topic
 		$topic = $this->repo->getTopicBySlug($slug);
@@ -39,10 +37,13 @@ class TopicController extends Controller {
 			// Grab any children topics
 			$children = $this->repo->getChildrenTopics($topic);
 
-			// Pull the discussions out of the topic
-			$discussions = $this->repo->getDiscussions($topic);
+			// Pull the discussinos out of the topic and paginate for the page
+			$paginator = $this->repo->paginateDiscussions($topic, $request->get('page', 1), 25);
 
-			return view('pages.topics.show', compact('topic', 'discussions', 'children', 'parent'));
+			// Set the URL for the paginator
+			$paginator->setPath($request->getPathInfo());
+
+			return view('pages.topics.show', compact('topic', 'paginator', 'children', 'parent'));
 		}
 
 		return $this->errorNotFound("No such topic exists!");

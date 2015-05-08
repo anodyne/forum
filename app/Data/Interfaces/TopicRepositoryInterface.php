@@ -9,5 +9,6 @@ interface TopicRepositoryInterface extends BaseRepositoryInterface {
 	public function getDiscussions(Topic $topic);
 	public function getParentTopic(Topic $topic);
 	public function getTopicBySlug($slug);
+	public function paginateDiscussions(Topic $topic, $page = 1, $perPage = 25);
 
 }
