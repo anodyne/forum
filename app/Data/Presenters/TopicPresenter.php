@@ -30,9 +30,9 @@ class TopicPresenter extends Presenter {
 		if ($this->entity->discussions->count() > 0)
 		{
 			// Get the latest discussion in the topic
-			$discussion = $this->entity->discussions->sortByDesc('updated_at')->first();
+			$discussion = $this->entity->discussions->first();
 
-			return $discussion->present()->updated." ".$discussion->present()->updatedBy;
+			return $discussion->present()->updatedAt." ".$discussion->present()->updatedBy;
 		}
 
 		return false;
