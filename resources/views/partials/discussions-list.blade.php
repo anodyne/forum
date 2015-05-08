@@ -11,7 +11,7 @@
 
 				{!! $discussion->present()->topic !!}
 				<span class="list-item-meta">
-					{!! $discussion->present()->updated !!}
+					{!! $discussion->present()->updatedAt !!}
 					{!! $discussion->present()->updatedBy !!}
 				</span>
 			</div>
