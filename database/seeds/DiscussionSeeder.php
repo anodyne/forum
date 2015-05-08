@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 class DiscussionSeeder extends Seeder {
 
-	public static $number = 100;
+	public static $number = 250;
 
 	/**
 	 * Run the database seeds.
