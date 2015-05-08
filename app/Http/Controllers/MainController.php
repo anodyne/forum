@@ -1,8 +1,6 @@
 <?php namespace Forums\Http\Controllers;
 
-use Topic,
-	Discussion,
-	TopicRepositoryInterface,
+use TopicRepositoryInterface,
 	DiscussionRepositoryInterface;
 use Forums\Http\Requests,
 	Forums\Http\Controllers\Controller;
@@ -19,16 +17,16 @@ class MainController extends Controller {
 		$this->repo = $repo;
 	}
 
-	public function index(TopicRepositoryInterface $topicsRepo)
+	public function index(TopicRepositoryInterface $topicsRepo, Request $request)
 	{
 		// Get all the parent topics for the sidebar
 		$topics = $topicsRepo->allParents();
 
-		$discussions = Discussion::with('posts', 'posts.author', 'topic', 'topic.parent', 'author')
-			->orderBy('updated_at', 'desc')
-			->get();
+		// Get the paginated discussions
+		$paginator = $this->repo->paginateAll($request->get('page', 1), 25);
+		$paginator->setPath($request->getPathInfo());
 
-		return view('pages.main', compact('discussions', 'topics'));
+		return view('pages.main', compact('paginator', 'topics'));
 	}
 
 }

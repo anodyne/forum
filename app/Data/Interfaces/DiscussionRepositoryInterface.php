@@ -2,6 +2,6 @@
 
 interface DiscussionRepositoryInterface extends BaseRepositoryInterface {
 
-	public function getDiscussion($topicSlug, $slug);
+	public function paginateAll($page = 1, $perPage = 25);
 
 }

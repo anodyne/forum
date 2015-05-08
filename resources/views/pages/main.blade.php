@@ -11,7 +11,9 @@
 		</div>
 
 		<div class="col-md-8 col-lg-9">
-			{!! partial('discussions-list', ['discussions' => $discussions]) !!}
+			{!! partial('discussions-list', ['discussions' => $paginator]) !!}
+
+			{!! $paginator->render() !!}
 		</div>
 	</div>
 @stop
