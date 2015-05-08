@@ -49,6 +49,7 @@ class CreateTopicsTables extends Migration {
 			['name' => "Announcements", 'slug' => "", 'color' => "#607d8b", 'description' => "", 'parent_id' => 2],
 			['name' => "Help", 'slug' => "nova-help", 'color' => "#259b24", 'description' => "", 'parent_id' => 1],
 			['name' => "Skinning", 'slug' => "nova-skinning", 'color' => "#259b24", 'description' => "", 'parent_id' => 1],
+			['name' => "Xtra Discussions", 'slug' => "xtras-discussion", 'color' => "#d81b60", 'description' => "", 'parent_id' => 3],
 		];
 
 		foreach ($data as $d)

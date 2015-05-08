@@ -19,7 +19,7 @@ class DiscussionSeeder extends Seeder {
 		{
 			Discussion::create([
 				'user_id' => $faker->numberBetween(1, 2),
-				'topic_id' => $faker->numberBetween(1, 8),
+				'topic_id' => $faker->numberBetween(1, 9),
 				'title' => ucwords(implode(' ', $faker->words($faker->numberBetween(3, 10)))),
 				'slug' => '',
 			]);
