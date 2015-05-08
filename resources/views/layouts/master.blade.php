@@ -35,7 +35,7 @@
 							<nav class="nav-sub">
 								<ul>
 									<li><a href="{{ route('home') }}">All Discussions</a></li>
-									<li><a href="{{ route('topics') }}">All Topics</a></li>
+									<li><a href="#">Leaderboard</a></li>
 
 									@if (Auth::check())
 										<li><a href="#">My Discussions</a></li>
