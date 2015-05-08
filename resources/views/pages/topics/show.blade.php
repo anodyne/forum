@@ -37,19 +37,25 @@
 		</div>
 	</div>
 
+	{!! $topic->present()->description !!}
+
 	@if ($children->count() > 0)
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">{{ $topic->name }} Sub Topics</h3>
 			</div>
 			<div class="panel-body">
-				{!! partial('topics-list', ['topics' => $children]) !!}
+				{!! partial('topics-list', ['topics' => $children, 'includeChildren' => false]) !!}
 			</div>
 		</div>
 	@endif
 
-	@if ($discussions->count() > 0)
-		{!! partial('discussions-list', ['discussions' => $discussions]) !!}
+	@if ($paginator->total() > 0)
+		{!! $paginator->render() !!}
+
+		{!! partial('discussions-list', ['discussions' => $paginator]) !!}
+
+		{!! $paginator->render() !!}
 	@else
 		{!! alert('warning', "No {$topic->name} discussions found.") !!}
 	@endif
