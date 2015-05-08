@@ -42,7 +42,7 @@ class Topic extends Model {
 
 	public function discussions()
 	{
-		return $this->hasMany('Discussion');
+		return $this->hasMany('Discussion')->orderBy('updated_at', 'desc');
 	}
 
 	public function parent()
