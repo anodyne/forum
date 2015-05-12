@@ -1,25 +1,21 @@
 <?php namespace Forums\Http\Controllers;
 
-use TagRepositoryInterface,
-	ArticleRepositoryInterface,
-	ProductRepositoryInterface;
 use Forums\Events,
-	Forums\Http\Requests,
-	Forums\Http\Controllers\Controller;
+	Forums\Http\Requests;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller {
 
 	protected $repo;
 
-	public function __construct(ArticleRepositoryInterface $repo)
+	public function __construct()
 	{
 		parent::__construct();
 
-		$this->repo = $repo;
+		//$this->repo = $repo;
 	}
 
-	public function advanced(ProductRepositoryInterface $productRepo, TagRepositoryInterface $tagRepo)
+	public function advanced()
 	{
 		// Get the products
 		$products = $productRepo->listAll('name', 'id');

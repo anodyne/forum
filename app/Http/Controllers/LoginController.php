@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
-use Forums\Http\Controllers\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class LoginController extends Controller {
