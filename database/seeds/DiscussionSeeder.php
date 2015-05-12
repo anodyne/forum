@@ -17,13 +17,26 @@ class DiscussionSeeder extends Seeder {
 
 		for ($i = 0; $i < static::$number; $i++)
 		{
+			$title = ucwords(implode(' ', $faker->words($faker->numberBetween(3, 10))));
+
 			Discussion::create([
 				'user_id' => $faker->numberBetween(1, 2),
 				'topic_id' => $faker->numberBetween(1, 9),
-				'title' => ucwords(implode(' ', $faker->words($faker->numberBetween(3, 10)))),
-				'slug' => '',
+				'title' => $title,
+				'slug' => $this->makeSlugFromTitle($title),
 			]);
 		}
+	}
+
+	protected function makeSlugFromTitle($title)
+	{
+		// Make the slug
+		$slug = Str::slug($title);
+
+		// Are there other items with this slug?
+		$count = Discussion::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+
+		return ($count) ? "{$slug}-{$count}" : $slug;
 	}
 
 }
