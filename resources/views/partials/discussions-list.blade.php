@@ -7,7 +7,7 @@
 			</div>
 
 			<div class="list-item-group">
-				{!! $discussion->present()->title !!}
+				{!! $discussion->present()->titleAsLink !!}
 
 				{!! $discussion->present()->topic !!}
 				<span class="list-item-meta">

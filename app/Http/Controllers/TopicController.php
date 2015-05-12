@@ -27,7 +27,7 @@ class TopicController extends Controller {
 	public function show(Request $request, $slug)
 	{
 		// Get the topic
-		$topic = $this->repo->getTopicBySlug($slug);
+		$topic = $this->repo->getBySlug($slug);
 
 		if ($topic)
 		{

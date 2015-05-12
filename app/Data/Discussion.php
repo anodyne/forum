@@ -1,6 +1,6 @@
 <?php namespace Forums\Data;
 
-use Str, Auth, Model;
+use Str, Auth, User, Model;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,22 +18,14 @@ class Discussion extends Model {
 
 	/*
 	|---------------------------------------------------------------------------
-	| Accessors/Mutators
-	|---------------------------------------------------------------------------
-	*/
-
-	public function setSlugAttribute($value)
-	{
-		$this->attributes['slug'] = (empty($value))
-			? Str::slug($this->attributes['title'])
-			: $value;
-	}
-
-	/*
-	|---------------------------------------------------------------------------
 	| Relationships
 	|---------------------------------------------------------------------------
 	*/
+
+	public function answer()
+	{
+		return $this->hasOne('Post', 'id', 'answer_id');
+	}
 
 	public function author()
 	{
@@ -84,9 +76,14 @@ class Discussion extends Model {
 		return $this->updated_at > $state->last_visited;
 	}
 
+	public function isAuthor(User $user)
+	{
+		return (bool) ($this->user_id == $user->id);
+	}
+
 	public function getStatusAttribute()
 	{
-		if ($this->hasNewReplies()) return 'updated';
+		if ($this->hasNewReplies()) return ' updated';
 	}
 
 }

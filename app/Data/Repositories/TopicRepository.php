@@ -32,6 +32,11 @@ class TopicRepository extends BaseRepository implements TopicRepositoryInterface
 		return $query->parents()->orderBy('name')->get();
 	}
 
+	public function getBySlug($slug)
+	{
+		return $this->getFirstBy('slug', $slug, ['discussions', 'parent', 'children']);
+	}
+
 	public function getChildrenTopics(Model $model)
 	{
 		if ($model->children)
@@ -58,9 +63,27 @@ class TopicRepository extends BaseRepository implements TopicRepositoryInterface
 		return null;
 	}
 
-	public function getTopicBySlug($slug)
+	public function listAll($value, $key)
 	{
-		return $this->getFirstBy('slug', $slug, ['discussions', 'parent', 'children']);
+		// Get all the parents
+		$parents = $this->allParents();
+
+		$list = [];
+
+		foreach ($parents as $parent)
+		{
+			$list[$parent->{$key}] = $parent->present()->{$value}();
+
+			if ($parent->children->count() > 0)
+			{
+				foreach ($parent->children as $child)
+				{
+					$list[$child->{$key}] = $child->present()->{$value}();
+				}
+			}
+		}
+
+		return $list;
 	}
 
 	public function paginateDiscussions(Model $model, $page = 1, $perPage = 25)

@@ -1,6 +1,6 @@
 <div class="forum-controls">
 	@if ($_currentUser)
-		<p><a href="#" class="btn btn-primary btn-lg btn-block">Start a Discussion</a></p>
+		<p><a href="{{ route('discussion.create') }}" class="btn btn-primary btn-lg btn-block">Start a Discussion</a></p>
 	@endif
 
 	<div class="visible-xs visible-sm">

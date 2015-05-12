@@ -17,15 +17,19 @@ class DiscussionStateRepository extends BaseRepository implements DiscussionStat
 
 	public function getStateForCurrentUser(User $user, Discussion $discussion)
 	{
-		return $this->model->firstOrNew([
+		$discussionState = $this->model->firstOrNew([
 			'user_id'		=> $user->id,
 			'discussion_id'	=> $discussion->id,
 		]);
+
+		$discussionState->save();
+
+		return $discussionState;
 	}
 
 	public function updateState(Model $model)
 	{
-		$model->update(['last_visited' => Date::now()]);
+		return $model->update(['last_visited' => Date::now()]);
 	}
 
 }

@@ -16,7 +16,7 @@ class Post extends Model {
 
 	protected $touches = ['discussion'];
 
-	protected $presenter = 'Forms\Data\Presenters\PostPresenter';
+	protected $presenter = 'Forums\Data\Presenters\PostPresenter';
 
 	/*
 	|---------------------------------------------------------------------------
@@ -32,6 +32,11 @@ class Post extends Model {
 	public function discussion()
 	{
 		return $this->belongsTo('Discussion');
+	}
+
+	public function isAnswer()
+	{
+		return $this->belongsTo('Discussion', 'id', 'answer_id');
 	}
 
 }

@@ -5,22 +5,36 @@ use Laracasts\Presenter\Presenter;
 
 class DiscussionPresenter extends Presenter {
 
+	public function author()
+	{
+		return $this->entity->author->present()->name;
+	}
+
+	public function authorAsLink()
+	{
+		return link_to_route('profile', $this->author(), [$this->entity->author->username]);
+	}
+
 	public function authorAvatar($linkToProfile = true)
 	{
 		return $this->entity->author->present()->avatar([
 			'type' => 'link',
-			'link' => '#',
+			'link' => route('profile', [$this->entity->author->username]),
 			'class' => 'avatar avatar-sm img-circle'
 		]);
 	}
 
 	public function title()
 	{
-		$updated = mt_rand(0, 1);
+		return $this->entity->title;
+	}
 
-		$updatedString = (Auth::check() and $updated) ? ' updated' : false;
+	public function titleAsLink()
+	{
+		// Get the status for the discussion
+		$status = (Auth::check()) ? $this->entity->getStatusAttribute() : false;
 
-		return '<a href="'.route('home').'" class="list-item-title'.$updatedString.'">'.$this->entity->title.'</a>';
+		return link_to_route('discussion.show', $this->title(), [$this->entity->topic->slug, $this->entity->slug], ['class' => "list-item-title{$status}"]);
 	}
 
 	public function replyCount()
@@ -43,7 +57,10 @@ class DiscussionPresenter extends Presenter {
 
 	public function updatedBy()
 	{
-		return "by <a href='#'>".$this->entity->posts->last()->author->present()->name."</a>";
+		// Grab the author of the last post
+		$author = $this->entity->posts->last()->author;
+
+		return "by ".link_to_route('profile', $author->present()->name, [$author->username]);
 	}
 
 }
