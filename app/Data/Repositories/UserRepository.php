@@ -12,9 +12,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
 		$this->model = $model;
 	}
 
-	public function addPoints(User $user, $points)
+	public function addPoints(Model $model, $points)
 	{
-		$user->increment('points', $points);
+		$model->increment('points', $points);
 	}
 
 }
