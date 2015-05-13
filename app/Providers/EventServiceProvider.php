@@ -11,8 +11,17 @@ class EventServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $listen = [
-		'event.name' => [
-			'EventListener',
+		'Forums\Events\DiscussionWasCreated' => [
+			'Forums\Handlers\Events\CalculatePoints',
+		],
+		'Forums\Events\DiscussionWasAnswered' => [
+			'Forums\Handlers\Events\CalculatePoints',
+		],
+		'Forums\Events\DiscussionWasUpdated' => [
+			//
+		],
+		'Forums\Events\PostWasCreated' => [
+			'Forums\Handlers\Events\CalculatePoints',
 		],
 	];
 
