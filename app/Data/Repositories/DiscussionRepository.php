@@ -25,7 +25,7 @@ class DiscussionRepository extends BaseRepository implements DiscussionRepositor
 			'topic_id'	=> $data['topic'],
 			'user_id'	=> $data['user'],
 			'title'		=> $data['title'],
-			'slug'		=> $this->makeSlugFromTitle($data['title']),
+			'slug'		=> $this->makeSlugFromTitle($data['title'], $data['topic']),
 		]);
 
 		// Create the first post
@@ -44,21 +44,10 @@ class DiscussionRepository extends BaseRepository implements DiscussionRepositor
 			return $topic->discussions->filter(function($d) use ($discussionSlug)
 			{
 				return $d->slug == $discussionSlug;
-			})->first()->load('answer', 'posts.isAnswer', 'posts.author');
+			})->first()->load('answer', 'posts.author');
 		}
 
 		return false;
-	}
-
-	protected function makeSlugFromTitle($title)
-	{
-		// Make the slug
-		$slug = Str::slug($title);
-
-		// Are there other items with this slug?
-		$count = Model::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-
-		return ($count) ? "{$slug}-{$count}" : $slug;
 	}
 
 	public function paginateAll($page = 1, $perPage = 25)
@@ -81,6 +70,18 @@ class DiscussionRepository extends BaseRepository implements DiscussionRepositor
 	public function postReply(Discussion $discussion, array $data)
 	{
 		return $this->postsRepo->create($discussion, $data);
+	}
+
+	protected function makeSlugFromTitle($title, $topicId)
+	{
+		// Make the slug
+		$slug = Str::slug($title);
+
+		// Are there other items with this slug?
+		$count = Model::where('topic_id', $topicId)
+			->whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+
+		return ($count) ? "{$slug}-{$count}" : $slug;
 	}
 
 }
