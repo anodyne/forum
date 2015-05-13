@@ -19,22 +19,25 @@ class DiscussionSeeder extends Seeder {
 		{
 			$title = ucwords(implode(' ', $faker->words($faker->numberBetween(3, 10))));
 
+			$topic = $faker->numberBetween(1, Topic::count());
+
 			Discussion::create([
-				'user_id' => $faker->numberBetween(1, 2),
-				'topic_id' => $faker->numberBetween(1, 9),
+				'user_id' => $faker->numberBetween(1, User::count()),
+				'topic_id' => $topic,
 				'title' => $title,
-				'slug' => $this->makeSlugFromTitle($title),
+				'slug' => $this->makeSlugFromTitle($title, $topic),
 			]);
 		}
 	}
 
-	protected function makeSlugFromTitle($title)
+	protected function makeSlugFromTitle($title, $topicId)
 	{
 		// Make the slug
 		$slug = Str::slug($title);
 
 		// Are there other items with this slug?
-		$count = Discussion::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+		$count = Discussion::where('topic_id', $topicId)
+			->whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
 
 		return ($count) ? "{$slug}-{$count}" : $slug;
 	}
