@@ -4,6 +4,9 @@
 		<div class="col-md-10">
 			<div class="list-item-avatar">
 				{!! $discussion->present()->authorAvatar !!}
+				@if ($discussion->answer)
+					<span class="list-item-answered" title="Discussion has a reply marked as a correct answer">{!! $_icons['check'] !!}</span>
+				@endif
 			</div>
 
 			<div class="list-item-group">

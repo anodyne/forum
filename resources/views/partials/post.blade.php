@@ -22,25 +22,27 @@
 				{!! $post->present()->content !!}
 			</div>
 
-			@if ($footer)
+			@if (Auth::check() and $footer)
 				<div class="panel-footer">
 					<div class="visible-xs visible-sm">
-						@if ($discussion->isAuthor($_currentUser) and $discussion->answer and $discussion->answer->id != $post->id)
+						@if (Auth::check() and $discussion->isAuthor($_currentUser) and $discussion->answer and $discussion->answer->id != $post->id)
 							<p><a href="#" class="btn btn-default btn-lg btn-block">Mark as the Best Answer</a></p>
 						@endif
 					</div>
 					<div class="visible-md visible-lg">
 						<div class="btn-toolbar">
-							@if ($discussion->isAuthor($_currentUser) and $discussion->answer and $discussion->answer->id != $post->id)
+							@if (Auth::check() and $discussion->isAuthor($_currentUser) and $discussion->answer and $discussion->answer->id != $post->id)
 								<div class="btn-group">
 									<a href="#" class="btn btn-link">{!! $_icons['check'] !!}</a>
 								</div>
 							@endif
 
-							<div class="btn-group">
-								<a href="#" class="btn btn-link">{!! $_icons['edit'] !!}</a>
-								<a href="#" class="btn btn-link">{!! $_icons['remove'] !!}</a>
-							</div>
+							@if (Auth::check() and $_currentUser->can('forums.admin'))
+								<div class="btn-group">
+									<a href="#" class="btn btn-link">{!! $_icons['edit'] !!}</a>
+									<a href="#" class="btn btn-link">{!! $_icons['remove'] !!}</a>
+								</div>
+							@endif
 						</div>
 					</div>
 				</div>

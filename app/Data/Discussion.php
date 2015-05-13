@@ -1,6 +1,6 @@
 <?php namespace Forums\Data;
 
-use Str, Auth, User, Model;
+use Str, Auth, Model;
 use Laracasts\Presenter\PresentableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

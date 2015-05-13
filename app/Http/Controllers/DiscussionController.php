@@ -24,25 +24,26 @@ class DiscussionController extends Controller {
 		$topics = $topicsRepo->allParents();
 
 		// Get the paginated discussions
-		$paginator = $this->repo->paginateAll($request->get('page', 1), 25);
-		$paginator->setPath($request->getPathInfo());
+		$paginator = $this->repo->paginateAll($request->get('page', 1));
+		$paginator->setPath(route('home'));
 
 		return view('pages.discussions.all', compact('paginator', 'topics'));
 	}
 
-	public function show(DiscussionStateRepositoryInterface $stateRepo, $topicSlug, $discussionSlug)
+	public function show(DiscussionStateRepositoryInterface $stateRepo, Request $request, $topicSlug, $discussionSlug)
 	{
 		// Get the discussion
 		$discussion = $this->repo->getDiscussion($topicSlug, $discussionSlug);
 
 		// Get the first post
-		$firstPost = $discussion->posts->first();
+		$firstPost = $this->repo->getFirstPost($discussion);
 
 		// Get any right answer
-		$answer = $discussion->answer;
+		$answer = $this->repo->getAnswer($discussion);
 
-		// Get everything except the first post
-		$posts = $discussion->posts->except($firstPost->id);
+		// Paginate the posts
+		$posts = $this->repo->paginatePosts($discussion, $request->get('page', 1));
+		$posts->setPath(route('discussion.show', [$topicSlug, $discussionSlug]));
 
 		if ($this->currentUser)
 		{
@@ -73,6 +74,7 @@ class DiscussionController extends Controller {
 		]));
 
 		// Fire the event
+		event(new Events\DiscussionWasCreated($discussion, $_currentUser));
 
 		// Set the flash message
 		flash_success("Discussion created!");
@@ -91,6 +93,7 @@ class DiscussionController extends Controller {
 			$post = $this->repo->postReply($discussion, $request->all());
 
 			// Fire the event
+			event(new Events\PostWasCreated($discussion, $post, $_currentUser));
 
 			// Set the flash message
 

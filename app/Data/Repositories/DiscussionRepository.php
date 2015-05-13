@@ -34,6 +34,11 @@ class DiscussionRepository extends BaseRepository implements DiscussionRepositor
 		return $discussion;
 	}
 
+	public function getAnswer(Model $model)
+	{
+		return $model->answer;
+	}
+
 	public function getDiscussion($topicSlug, $discussionSlug)
 	{
 		// Get the topic
@@ -50,10 +55,15 @@ class DiscussionRepository extends BaseRepository implements DiscussionRepositor
 		return false;
 	}
 
-	public function paginateAll($page = 1, $perPage = 25)
+	public function getFirstPost(Model $model)
+	{
+		return $model->posts->first();
+	}
+
+	public function paginateAll($page = 1, $perPage = 20)
 	{
 		// Start building the query
-		$query = $this->make(['posts', 'posts.author', 'topic', 'topic.parent', 'author', 'stateForUser']);
+		$query = $this->make(['posts', 'posts.author', 'topic', 'topic.parent', 'author', 'stateForUser', 'answer']);
 
 		// Get the discussions
 		$discussions = $query->orderBy('updated_at', 'desc')->get();
@@ -65,6 +75,20 @@ class DiscussionRepository extends BaseRepository implements DiscussionRepositor
 		$itemsForCurrentPage = $discussions->slice($offset, $perPage);
 
 		return new LengthAwarePaginator($itemsForCurrentPage, $discussions->count(), $perPage, $page);
+	}
+
+	public function paginatePosts(Model $model, $page = 1, $perPage = 15)
+	{
+		// Get everything except the first post
+		$posts = $model->posts->except($this->getFirstPost($model)->id);
+
+		// Build the offset
+		$offset = ($page * $perPage) - $perPage;
+
+		// Get the items for the current page
+		$itemsForCurrentPage = $posts->slice($offset, $perPage);
+
+		return new LengthAwarePaginator($itemsForCurrentPage, $posts->count(), $perPage, $page);
 	}
 
 	public function postReply(Discussion $discussion, array $data)
