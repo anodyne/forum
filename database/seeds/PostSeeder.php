@@ -4,8 +4,6 @@ use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder {
 
-	public static $number = 1000;
-
 	/**
 	 * Run the database seeds.
 	 *
@@ -15,20 +13,23 @@ class PostSeeder extends Seeder {
 	{
 		$faker = Faker\Factory::create();
 
-		for ($d = 1; $d <= DiscussionSeeder::$number; $d++)
+		$discussions = DiscussionSeeder::$number;
+		$posts = $discussions * 10;
+
+		for ($d = 1; $d <= $discussions; $d++)
 		{
 			Post::create([
-				'user_id' => $faker->numberBetween(1, 2),
+				'user_id' => $faker->numberBetween(1, User::count()),
 				'discussion_id' => $d,
 				'content' => $faker->realText(750),
 			]);
 		}
 
-		for ($i = 0; $i < static::$number; $i++)
+		for ($p = 0; $p < $posts; $p++)
 		{
 			Post::create([
-				'user_id' => $faker->numberBetween(1, 2),
-				'discussion_id' => $faker->numberBetween(1, DiscussionSeeder::$number),
+				'user_id' => $faker->numberBetween(1, User::count()),
+				'discussion_id' => $faker->numberBetween(1, $discussions),
 				'content' => $faker->realText(750),
 			]);
 		}
