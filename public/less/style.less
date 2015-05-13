@@ -787,64 +787,6 @@ form {
 	margin-left: 65px;
 }
 
-.item-preview {
-	position: relative;
-	width: 100%;
-	height: 150px;
-
-	background-color: transparent;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-
-	.border-radius(@border-radius, @border-radius, 0, 0);
-}
-
-.tab-icon {
-	float: left;
-	margin-right: 5px;
-
-	&.tab-icon-up1 {
-		margin-top: -1px;
-	}
-
-	&.tab-icon-up2 {
-		margin-top: -2px;
-	}
-
-	&.tab-icon-up3 {
-		margin-top: -3px;
-	}
-
-	&.tab-icon-up4 {
-		margin-top: -4px;
-	}
-
-	&.tab-icon-right {
-		margin-right: 8px;
-	}
-}
-
-pre {
-	background-color: @color-subtle;
-	border: 1px solid @color-gray-light;
-
-	.rounded(@border-radius);
-}
-
-code {
-	background-color: @color-subtle;
-	border: 1px solid @color-gray-light;
-	color: @color-primary-light;
-
-	.rounded(@border-radius);
-}
-
-pre > code {
-	background: none;
-	border: none;
-}
-
 .img-rounded {
 	.rounded(@border-radius);
 }
@@ -958,34 +900,6 @@ hr.partial-split {
 		background: transparent;
 		border: none;
 		color: @color-primary;
-	}
-}
-
-.author-metadata {
-	position: relative;
-	margin: @spacing 0 @spacing-lg 0;
-
-	.author-avatar {
-		float: left;
-		margin-right: @spacing;
-	}
-	.author-name {
-		font-weight: 600;
-	}
-	.article-date {
-		font-size: @font-size-sm;
-	}
-}
-
-.well {
-	border-color: @color-gray-light;
-	background-color: @color-subtle;
-
-	.rounded(@border-radius);
-	.box-shadow(~"0 0 0 transparent, 0 0 0 transparent, inset 0 0 0 transparent");
-
-	hr {
-		border-color: @color-gray-light;
 	}
 }
 
@@ -1140,25 +1054,37 @@ hr.partial-split {
 	}
 }
 
-.pagination > .active > a,
-.pagination > .active > span,
-.pagination > .active > a:hover,
-.pagination > .active > span:hover,
-.pagination > .active > a:focus,
-.pagination > .active > span:focus {
-	background-color: @color-primary;
-	font-family: @font-special;
-	font-weight: 500;
-	border-color: @color-primary;
-}
+.pagination {
+	> li {
+		> a, > span {
+			color: @color-primary;
+			font-family: @font-special;
+			font-weight: 500;
 
-.pagination > li > a, .pagination > li > span {
-	color: @color-primary;
-	font-family: @font-special;
-	font-weight: 500;
+			&:hover {
+				color: @color-primary-light;
+			}
+		}
 
-	&:hover {
-		color: @color-primary-light;
+		&:first-child {
+			> a, > span {
+				.border-radius(@border-radius, 0, 0, @border-radius);
+			}
+		}
+
+		&:last-child {
+			> a, > span {
+				.border-radius(0, @border-radius, @border-radius, 0);
+			}
+		}
+	}
+
+	> .active {
+		> a, > span, > a:hover, > span:hover, > a:focus, > span:focus {
+			background-color: @color-primary;
+			font-family: @font-special;
+			font-weight: 500;
+		}
 	}
 }
 
