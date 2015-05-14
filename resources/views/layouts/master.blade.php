@@ -38,10 +38,10 @@
 									<li><a href="#">Leaderboard</a></li>
 
 									@if (Auth::check())
-										<li><a href="#">My Discussions</a></li>
+										<li><a href="{{ route('user.discussions') }}">My Discussions</a></li>
 									@endif
 									
-									<li><a href="#">Advanced Search</a></li>
+									<li><a href="{{ route('search.advanced') }}">Advanced Search</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -121,7 +121,7 @@
 					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
-			
+
 			// Destroy all modals when they're hidden
 			$('.modal').on('hidden.bs.modal', function()
 			{
