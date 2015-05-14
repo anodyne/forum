@@ -46,30 +46,32 @@
 			</div>
 		</span>
 
-		<hr class="partial-split">
+		@if ($_currentUser->can('forums.post.create'))
+			<hr class="partial-split">
 
-		<div class="media">
-			<div class="media-left">
-				{!! $_currentUser->present()->avatar([
-					'type' => 'link',
-					'link' => route('profile', [$_currentUser->username]),
-					'class' => 'avatar avatar-sm img-circle'
-				]) !!}
-			</div>
-			<div class="media-body">
-				<div class="form-group">
-					{!! Form::textarea('reply', null, ['class' => 'form-control']) !!}
-					<p class="help-block">{!! $_icons['markdown'] !!} Parsed as Markdown</p>
+			<div class="media">
+				<div class="media-left">
+					{!! $_currentUser->present()->avatar([
+						'type' => 'link',
+						'link' => route('profile', [$_currentUser->username]),
+						'class' => 'avatar avatar-sm img-circle'
+					]) !!}
 				</div>
-				<div class="form-group">
-					<div class="visible-xs visible-sm">
-						{!! Form::button("Post a Reply", ['type' => 'submit', 'class' => 'btn btn-primary btn-lg btn-block']) !!}
+				<div class="media-body">
+					<div class="form-group">
+						{!! Form::textarea('reply', null, ['class' => 'form-control']) !!}
+						<p class="help-block">{!! $_icons['markdown'] !!} Parsed as Markdown</p>
 					</div>
-					<div class="visible-md visible-lg">
-						{!! Form::button("Post a Reply", ['type' => 'submit', 'class' => 'btn btn-primary btn-lg']) !!}
+					<div class="form-group">
+						<div class="visible-xs visible-sm">
+							{!! Form::button("Post a Reply", ['type' => 'submit', 'class' => 'btn btn-primary btn-lg btn-block']) !!}
+						</div>
+						<div class="visible-md visible-lg">
+							{!! Form::button("Post a Reply", ['type' => 'submit', 'class' => 'btn btn-primary btn-lg']) !!}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		@endif
 	@endif
 @stop

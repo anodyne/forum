@@ -22,25 +22,42 @@
 				{!! $post->present()->content !!}
 			</div>
 
-			@if (Auth::check() and $footer)
+			@if (Auth::check())
 				<div class="panel-footer">
 					<div class="visible-xs visible-sm">
-						@if (Auth::check() and $discussion->isAuthor($_currentUser) and $discussion->answer and $discussion->answer->id != $post->id)
+						@if ($discussion->isAuthor($_currentUser) and $discussion->answer and $discussion->answer->id != $post->id)
 							<p><a href="#" class="btn btn-default btn-lg btn-block">Mark as the Best Answer</a></p>
 						@endif
 					</div>
 					<div class="visible-md visible-lg">
+						<div class="btn-toolbar pull-right">
+							<div class="btn-group">
+								<a href="#" class="btn" title="Copy the link to this post">{!! $_icons['link'] !!}</a>
+							</div>
+							<div class="btn-group">
+								<a href="#" class="btn" title="Send the author a message">{!! $_icons['message'] !!}</a>
+							</div>
+							<div class="btn-group">
+								<a href="#" class="btn" title="Report this post">{!! $_icons['warning'] !!}</a>
+							</div>
+						</div>
+
 						<div class="btn-toolbar">
-							@if (Auth::check() and $discussion->isAuthor($_currentUser) and $discussion->answer and $discussion->answer->id != $post->id)
+							@if ($discussion->answer and $discussion->answer->id != $post->id and ($_currentUser->can('forums.admin') or $discussion->isAuthor($_currentUser)))
 								<div class="btn-group">
-									<a href="#" class="btn btn-link">{!! $_icons['check'] !!}</a>
+									<a href="#" class="btn">{!! $_icons['check'] !!}</a>
 								</div>
 							@endif
 
-							@if (Auth::check() and $_currentUser->can('forums.admin'))
+							@if ($_currentUser->can('forums.post.edit') or ($post->authorCanEdit($_currentUser)))
 								<div class="btn-group">
-									<a href="#" class="btn btn-link">{!! $_icons['edit'] !!}</a>
-									<a href="#" class="btn btn-link">{!! $_icons['remove'] !!}</a>
+									<a href="#" class="btn">{!! $_icons['edit'] !!}</a>
+								</div>
+							@endif
+
+							@if ($_currentUser->can('forums.post.delete'))
+								<div class="btn-group">
+									<a href="#" class="btn">{!! $_icons['remove'] !!}</a>
 								</div>
 							@endif
 						</div>
