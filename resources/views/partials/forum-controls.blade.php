@@ -1,5 +1,5 @@
 <div class="forum-controls">
-	@if ($_currentUser)
+	@if ($_currentUser and $_currentUser->can('forums.discussion.create'))
 		<p><a href="{{ route('discussion.create') }}" class="btn btn-primary btn-lg btn-block">Start a Discussion</a></p>
 	@endif
 
