@@ -1162,10 +1162,15 @@ hr.partial-split {
 
 			a {
 				color: @color-gray-blue;
+				border: 1px solid transparent;
+
+				.rounded(@border-radius);
 
 				&:hover {
 					color: darken(@color-gray-blue, 15%);
 					text-decoration: none;
+					border-color: lighten(@color-gray-light, 2.5%);
+					background-color: lighten(@color-subtle, 3%);
 				}
 			}
 		}
@@ -1196,11 +1201,16 @@ hr.partial-split {
 			background-color: lighten(@color-danger-bright, 13%);
 
 			a {
-				color: @color-danger;
+				color: @color-danger-dark;
+				border: 1px solid transparent;
+
+				.rounded(@border-radius);
 
 				&:hover {
-					color: darken(@color-danger, 15%);
+					color: darken(@color-danger-dark, 15%);
 					text-decoration: none;
+					border-color: lighten(@color-danger-light, 17%);
+					background-color: lighten(@color-danger-bright, 10%);
 				}
 			}
 		}
@@ -1232,10 +1242,15 @@ hr.partial-split {
 
 			a {
 				color: @color-warning-dark;
+				border: 1px solid transparent;
+
+				.rounded(@border-radius);
 
 				&:hover {
 					color: darken(@color-warning-dark, 15%);
 					text-decoration: none;
+					border-color: lighten(@color-warning-light, 10%);
+					background-color: lighten(@color-warning-bright, 6.5%);
 				}
 			}
 		}
@@ -1267,10 +1282,15 @@ hr.partial-split {
 
 			a {
 				color: @color-info-dark;
+				border: 1px solid transparent;
+
+				.rounded(@border-radius);
 
 				&:hover {
 					color: darken(@color-info-dark, 15%);
 					text-decoration: none;
+					border-color: lighten(@color-info-light, 17%);
+					background-color: lighten(@color-info-bright, 10%);
 				}
 			}
 		}
@@ -1302,10 +1322,15 @@ hr.partial-split {
 
 			a {
 				color: @color-success-dark;
+				border: 1px solid transparent;
+
+				.rounded(@border-radius);
 
 				&:hover {
 					color: darken(@color-success-dark, 15%);
 					text-decoration: none;
+					border-color: lighten(@color-success-light, 10%);
+					background-color: lighten(@color-success-bright, 6.5%);
 				}
 			}
 		}
