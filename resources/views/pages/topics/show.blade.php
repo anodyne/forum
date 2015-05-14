@@ -9,9 +9,9 @@
 
 	<div class="visible-xs visible-sm">
 		<div class="row">
-			@if ($_currentUser)
+			@if ($_currentUser and $_currentUser->can('forums.discussion.create'))
 				<div class="col-sm-6">
-					<p><a href="#" class="btn btn-primary btn-lg btn-block">Start a Discussion</a></p>
+					<p><a href="{{ route('discussion.create') }}" class="btn btn-primary btn-lg btn-block">Start a Discussion</a></p>
 				</div>
 			@endif
 			@if ($parent)
@@ -24,9 +24,9 @@
 
 	<div class="visible-md visible-lg">
 		<div class="btn-toolbar">
-			@if ($_currentUser)
+			@if ($_currentUser and $_currentUser->can('forums.discussion.create'))
 				<div class="btn-group">
-					<a href="#" class="btn btn-primary">Start a Discussion</a>
+					<a href="{{ route('discussion.create') }}" class="btn btn-primary">Start a Discussion</a>
 				</div>
 			@endif
 			@if ($parent)
