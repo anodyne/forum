@@ -15,6 +15,11 @@ class UserController extends Controller {
 		$this->repo = $repo;
 	}
 
+	public function discussions($username = false)
+	{
+		# code...
+	}
+
 	public function show($username)
 	{
 		//
