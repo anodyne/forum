@@ -39,4 +39,24 @@ class Post extends Model {
 		return $this->belongsTo('Discussion', 'id', 'answer_id');
 	}
 
+	/*
+	|---------------------------------------------------------------------------
+	| Model Methods
+	|---------------------------------------------------------------------------
+	*/
+
+	public function authorCanEdit(User $user)
+	{
+		if ( ! $this->isAuthor($user)) return false;
+
+		if ( ! $user->can('forums.post.edit') and $this->created_at->diffInMinutes() < 60) return true;
+
+		return false;
+	}
+
+	public function isAuthor(User $user)
+	{
+		return (bool) ($this->user_id == $user->id);
+	}
+
 }

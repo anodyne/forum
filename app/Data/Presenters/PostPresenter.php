@@ -31,6 +31,9 @@ class PostPresenter extends Presenter {
 
 	public function posted()
 	{
+		if ($this->entity->updated_at != $this->entity->created_at)
+			return "Updated ".$this->entity->updated_at->diffForHumans();
+
 		return "Posted ".$this->entity->created_at->diffForHumans();
 	}
 
