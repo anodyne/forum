@@ -1,6 +1,7 @@
 <?php namespace Forums\Providers;
 
-use Forums\Services\MarkdownParser;
+use Forums\Services\FlashNotifier,
+	Forums\Services\MarkdownParser;
 use League\CommonMark\CommonMarkConverter;
 use Illuminate\Support\ServiceProvider;
 
