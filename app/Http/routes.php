@@ -44,17 +44,41 @@ Route::group(['prefix' => 'search'], function()
 /**
  * Discussions
  */
-Route::resource('discussion', 'DiscussionController');
-Route::post('discussion/{topicSlug/{discussionSlug}/reply', [
-	'as'	=> 'discussion.quick-reply',
-	'uses'	=> 'DiscussionController@storeQuickReply']);
+Route::group(['prefix' => 'discussion'], function()
+{
+	Route::get('create', [
+		'as'	=> 'discussion.create',
+		'uses'	=> 'DiscussionController@create']);
+	Route::post('/', [
+		'as'	=> 'discussion.store',
+		'uses'	=> 'DiscussionController@store']);
+	Route::get('{topicSlug}/{discussionSlug}/edit', [
+		'as'	=> 'discussion.edit',
+		'uses'	=> 'DiscussionController@edit']);
+	Route::put('{topicSlug}/{discussionSlug}', [
+		'as'	=> 'discussion.update',
+		'uses'	=> 'DiscussionController@update']);
+	Route::get('{topicSlug}/{discussionSlug}/remove', [
+		'as'	=> 'discussion.remove',
+		'uses'	=> 'DiscussionController@remove']);
+	Route::delete('{topicSlug}/{discussionSlug}', [
+		'as'	=> 'discussion.destroy',
+		'uses'	=> 'DiscussionController@destroy']);
+	Route::post('{topicSlug}/{discussionSlug}/reply', [
+		'as'	=> 'discussion.reply',
+		'uses'	=> 'DiscussionController@storeReply']);
+});
+
 Route::get('discussion/{topicSlug}/{discussionSlug}', [
 	'as'	=> 'discussion.show',
 	'uses'	=> 'DiscussionController@show']);
 
 /**
- * User profile
+ * User profile and discussions
  */
 Route::get('profile/{username}', [
 	'as'	=> 'profile',
 	'uses'	=> 'UserController@show']);
+Route::get('user/discussions/{username?}', [
+	'as'	=> 'user.discussions',
+	'uses'	=> 'UserController@discussions']);
