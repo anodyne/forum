@@ -53,7 +53,7 @@
 	@if ($paginator->total() > 0)
 		{!! $paginator->render() !!}
 
-		{!! partial('discussions-list', ['discussions' => $paginator]) !!}
+		{!! partial('discussion-list', ['discussions' => $paginator]) !!}
 
 		{!! $paginator->render() !!}
 	@else
