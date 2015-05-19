@@ -1,23 +1,27 @@
 <?php namespace Forums\Http\Controllers;
 
-use TopicRepositoryInterface,
+use PostRepositoryInterface,
+	TopicRepositoryInterface,
 	DiscussionRepositoryInterface,
 	DiscussionStateRepositoryInterface;
 use Forums\Events,
 	Forums\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 
 class DiscussionController extends Controller {
 
 	protected $repo;
+	protected $postsRepo;
 	protected $topicsRepo;
 
 	public function __construct(DiscussionRepositoryInterface $repo,
-			TopicRepositoryInterface $topics)
+			TopicRepositoryInterface $topics, PostRepositoryInterface $posts)
 	{
 		parent::__construct();
 
 		$this->repo = $repo;
+		$this->postsRepo = $posts;
 		$this->topicsRepo = $topics;
 	}
 
@@ -26,39 +30,64 @@ class DiscussionController extends Controller {
 		// Get all the parent topics for the sidebar
 		$topics = $this->topicsRepo->allParents();
 
-		// Get the paginated discussions
-		$paginator = $this->repo->paginateAll($request->get('page', 1));
+		// What page are we on?
+		$page = $request->get('page', 1);
+
+		// How many items do we want?
+		$perPage = 20;
+
+		// Get the discussions
+		$discussions = $this->repo->paginate($page, $perPage);
+
+		// Build the paginator
+		$paginator = new Paginator($discussions->items, $discussions->totalItems, $perPage, $page);
 		$paginator->setPath(route('home'));
 
 		return view('pages.discussions.all', compact('paginator', 'topics'));
 	}
 
-	public function show(DiscussionStateRepositoryInterface $stateRepo,
-			Request $request, $topicSlug, $discussionSlug)
+	public function show(DiscussionStateRepositoryInterface $stateRepo, Request $request,
+			$topicSlug, $discussionSlug)
 	{
 		// Get the discussion
 		$discussion = $this->repo->getDiscussion($topicSlug, $discussionSlug);
 
-		// Get the first post
-		$firstPost = $this->repo->getFirstPost($discussion);
-
-		// Get any right answer
-		$answer = $this->repo->getAnswer($discussion);
-
-		// Paginate the posts
-		$posts = $this->repo->paginatePosts($discussion, $request->get('page', 1));
-		$posts->setPath(route('discussion.show', [$topicSlug, $discussionSlug]));
-
-		if ($this->currentUser)
+		if ($discussion)
 		{
-			// Get the state for the current user
-			$state = $stateRepo->getStateForCurrentUser($this->currentUser, $discussion);
+			// Get the first post of the discussion
+			$firstPost = $this->repo->getFirstPost($discussion);
 
-			// Update the state for the current user
-			$stateRepo->updateState($state);
+			// Get the right answer for the discussion
+			$answer = $this->repo->getAnswer($discussion);
+
+			// What page are we on?
+			$page = $request->get('page', 1);
+
+			// How many items do we want?
+			$perPage = 15;
+
+			// Get the posts
+			$posts = $this->postsRepo->paginate($discussion, $page, $perPage);
+
+			// Build the paginator
+			$paginator = new Paginator($posts->items, $posts->totalItems, $perPage, $page);
+			$paginator->setPath(route('discussion.show', [$topicSlug, $discussionSlug]));
+
+			if ($this->currentUser)
+			{
+				// Get the state for the current user
+				$state = $stateRepo->getStateForCurrentUser($this->currentUser, $discussion);
+
+				// Update the state for the current user
+				$stateRepo->updateState($state);
+			}
+
+			return view('pages.discussions.show', compact('discussion', 'firstPost', 'paginator', 'answer'));
 		}
 
-		return view('pages.discussions.show', compact('discussion', 'firstPost', 'posts', 'answer'));
+		return abort(404, "We couldn't find the discussion you're looking for.");
+
+		return $this->errorNotFound("We couldn't find the discussion you're looking for.");
 	}
 
 	public function create()

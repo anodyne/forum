@@ -26,17 +26,17 @@
 	@endif
 
 	<div class="posts-avatar-padding">
-		{!! $posts->render() !!}
+		{!! $paginator->render() !!}
 	</div>
 
-	@if ($posts->count() > 0)
-		@foreach ($posts as $post)
+	@if ($paginator->count() > 0)
+		@foreach ($paginator as $post)
 			{!! partial('post', ['post' => $post, 'discussion' => $discussion, 'footer' => true]) !!}
 		@endforeach
 	@endif
 
 	<div class="posts-avatar-padding">
-		{!! $posts->render() !!}
+		{!! $paginator->render() !!}
 	</div>
 
 	@if (Auth::check())

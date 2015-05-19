@@ -1,5 +1,6 @@
 <?php namespace Forums\Data\Repositories;
 
+use stdClass;
 use Str,
 	Discussion as Model,
 	PostRepositoryInterface,
@@ -46,10 +47,15 @@ class DiscussionRepository extends BaseRepository implements DiscussionRepositor
 
 		if ($topic)
 		{
-			return $topic->discussions->filter(function($d) use ($discussionSlug)
+			$discussion = $topic->discussions->filter(function($d) use ($discussionSlug)
 			{
 				return $d->slug == $discussionSlug;
-			})->first()->load('answer', 'posts.author');
+			})->first();
+
+			if ($discussion)
+			{
+				return $discussion->load('answer', 'posts.author');
+			}
 		}
 
 		return false;
@@ -77,23 +83,29 @@ class DiscussionRepository extends BaseRepository implements DiscussionRepositor
 		return new LengthAwarePaginator($itemsForCurrentPage, $discussions->count(), $perPage, $page);
 	}
 
-	public function paginatePosts(Model $model, $page = 1, $perPage = 15)
+	public function paginate($page = 1, $perPage = 20)
 	{
-		// Get everything except the first post
-		$posts = $model->posts->except($this->getFirstPost($model)->id);
+		// Start building the result set
+		$result = new stdClass;
+		$result->page = $page;
+		$result->perPage = $perPage;
+		$result->totalItems = 0;
+		$result->items = [];
 
 		// Build the offset
-		$offset = ($page * $perPage) - $perPage;
+		$offset = $perPage * ($page - 1);
 
-		// Get the items for the current page
-		$itemsForCurrentPage = $posts->slice($offset, $perPage);
+		// Build the query
+		$query = $this->make(['posts', 'posts.author', 'topic', 'topic.parent', 'author', 'stateForUser', 'answer'])->skip($offset)->take($perPage)->orderBy('updated_at', 'desc');
 
-		return new LengthAwarePaginator($itemsForCurrentPage, $posts->count(), $perPage, $page);
-	}
+		// Execute the query
+		$model = $query->get();
 
-	public function postReply(Discussion $discussion, array $data)
-	{
-		return $this->postsRepo->create($discussion, $data);
+		// Fill in the result set
+		$result->totalItems = $this->count();
+		$result->items = $model->all();
+
+		return $result;
 	}
 
 	protected function makeSlugFromTitle($title, $topicId)
