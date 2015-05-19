@@ -11,6 +11,11 @@ abstract class BaseRepository {
 		return $query->get();
 	}
 
+	public function count()
+	{
+		return $this->model->count();
+	}
+
 	public function countBy($key, $value, array $with = [])
 	{
 		$query = $this->make($with);
@@ -25,25 +30,39 @@ abstract class BaseRepository {
 		return $query->find($id);
 	}
 
-	public function getByPage($page = 1, $limit = 10, array $with = [])
+	public function getByPage($page = 1, $perPage = 10, array $with = [], $items = false)
 	{
 		// Start building the result set
 		$result = new stdClass;
 		$result->page = $page;
-		$result->limit = $limit;
+		$result->perPage = $perPage;
 		$result->totalItems = 0;
 		$result->items = [];
 
-		// Start building the query
-		$query = $this->make($with);
+		// Build the offset
+		$offset = $perPage * ($page - 1);
 
-		$model = $query->skip($limit * ($page - 1))
-			->take($limit)
-			->get();
+		if ($items)
+		{
+			// Eager load if necessary
+			$items = $items->load($with);
 
-		// Fill in the result set
-		$result->totalItems = $this->model->count();
-		$result->items = $model->all();
+			// Fill in the result set
+			$result->totalItems = ($items->count() == $perPage) ? $this->count() : $items->count();
+			$result->items = $items->slice($offset, $perPage);
+		}
+		else
+		{
+			// Build the query
+			$query = $this->make($with)->skip($offset)->take($perPage);
+
+			// Execute the query
+			$model = $query->get();
+
+			// Fill in the result set
+			$result->totalItems = $this->count();
+			$result->items = $model->all();
+		}
 
 		return $result;
 	}
