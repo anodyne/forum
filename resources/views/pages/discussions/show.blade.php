@@ -5,9 +5,9 @@
 @stop
 
 @section('content')
-	<h1>{!! $discussion->present()->title !!}</h1>
+	<h1 class="discussion-header">{!! $discussion->present()->title !!}</h1>
 
-	<p>{!! $discussion->present()->topic !!}</p>
+	{!! partial('discussion-breadcrumb', ['topic' => $discussion->topic]) !!}
 
 	{!! partial('post', ['post' => $firstPost, 'discussion' => $discussion, 'footer' => false]) !!}
 

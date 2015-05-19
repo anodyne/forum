@@ -243,6 +243,10 @@ section {
 		font-family: @font-titles;
 		font-weight: 700;
 		color: @color-primary;
+
+		&.discussion-header {
+			margin-bottom: @spacing-sm;
+		}
 	}
 
 	h2, h3, h4 {
@@ -1091,7 +1095,7 @@ hr.partial-split {
 .discussion-summary {
 	position: relative;
 	display: inline-block;
-	margin: 0 0 0 70px;
+	margin: @spacing 0 @spacing 70px;
 	padding: @spacing-sm @spacing-lg;
 
 	border: 1px solid @color-gray-light;
@@ -1420,5 +1424,23 @@ hr.partial-split {
 
 	.pagination {
 		margin-bottom: 0;
+	}
+}
+
+.breadcrumb {
+	padding: 0 0 @spacing-sm 3px;
+
+	background-color: transparent;
+
+	.rounded(@border-radius);
+
+	> li {
+		> a {
+			font-family: @font-special;
+			font-weight: 500;
+			font-size: @font-size-sm;
+			font-style: italic;
+			color: @color-gray-blue;
+		}
 	}
 }

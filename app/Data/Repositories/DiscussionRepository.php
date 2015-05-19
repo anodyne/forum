@@ -54,7 +54,7 @@ class DiscussionRepository extends BaseRepository implements DiscussionRepositor
 
 			if ($discussion)
 			{
-				return $discussion->load('answer', 'posts.author');
+				return $discussion->load('answer', 'posts.author', 'topic', 'topic.parent');
 			}
 		}
 
