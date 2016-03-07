@@ -1,11 +1,11 @@
-<?php namespace Forums\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
 use PostRepositoryInterface,
 	TopicRepositoryInterface,
 	DiscussionRepositoryInterface,
 	DiscussionStateRepositoryInterface;
-use Forums\Events,
-	Forums\Http\Requests;
+use App\Events,
+	App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 

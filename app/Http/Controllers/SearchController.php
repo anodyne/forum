@@ -1,7 +1,7 @@
-<?php namespace Forums\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
-use Forums\Events,
-	Forums\Http\Requests;
+use App\Events,
+	App\Http\Requests;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller {

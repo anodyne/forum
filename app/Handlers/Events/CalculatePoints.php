@@ -1,7 +1,7 @@
-<?php namespace Forums\Handlers\Events;
+<?php namespace App\Handlers\Events;
 
 use UserRepositoryInterface;
-use Forums\Events;
+use App\Events;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldBeQueued;
 

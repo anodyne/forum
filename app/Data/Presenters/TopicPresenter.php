@@ -1,4 +1,4 @@
-<?php namespace Forums\Data\Presenters;
+<?php namespace App\Data\Presenters;
 
 use Str, Markdown;
 use Laracasts\Presenter\Presenter;

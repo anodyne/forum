@@ -28,21 +28,18 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
 	'Illuminate\Contracts\Http\Kernel',
-	'Forums\Http\Kernel'
+	'App\Http\Kernel'
 );
 
 $app->singleton(
 	'Illuminate\Contracts\Console\Kernel',
-	'Forums\Console\Kernel'
+	'App\Console\Kernel'
 );
 
 $app->singleton(
 	'Illuminate\Contracts\Debug\ExceptionHandler',
-	'Forums\Exceptions\Handler'
+	'App\Exceptions\Handler'
 );
-
-// Pull in the helpers
-require_once app_path('helpers.php');
 
 /*
 |--------------------------------------------------------------------------

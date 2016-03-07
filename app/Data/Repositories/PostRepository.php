@@ -1,4 +1,4 @@
-<?php namespace Forums\Data\Repositories;
+<?php namespace App\Data\Repositories;
 
 use stdClass;
 use Discussion,

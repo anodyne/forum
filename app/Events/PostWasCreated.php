@@ -1,7 +1,7 @@
-<?php namespace Forums\Events;
+<?php namespace App\Events;
 
 use Post, User, Discussion;
-use Forums\Events\Event;
+use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 
 class PostWasCreated extends Event {

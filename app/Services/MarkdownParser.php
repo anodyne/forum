@@ -1,4 +1,4 @@
-<?php namespace Forums\Services;
+<?php namespace App\Services;
 
 use League\CommonMark\CommonMarkConverter as Parser;
 

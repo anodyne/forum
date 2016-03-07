@@ -1,4 +1,4 @@
-<?php namespace Forums\Data\Interfaces;
+<?php namespace App\Data\Interfaces;
 
 use User;
 

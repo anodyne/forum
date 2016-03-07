@@ -1,4 +1,4 @@
-<?php namespace Forums\Data;
+<?php namespace App\Data;
 
 use Model;
 

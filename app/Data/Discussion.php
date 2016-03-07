@@ -1,4 +1,4 @@
-<?php namespace Forums\Data;
+<?php namespace App\Data;
 
 use Str, Auth, Model;
 use Laracasts\Presenter\PresentableTrait;
@@ -14,7 +14,7 @@ class Discussion extends Model {
 
 	protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-	protected $presenter = 'Forums\Data\Presenters\DiscussionPresenter';
+	protected $presenter = 'App\Data\Presenters\DiscussionPresenter';
 
 	/*
 	|---------------------------------------------------------------------------

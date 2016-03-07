@@ -1,4 +1,4 @@
-<?php namespace Forums\Data;
+<?php namespace App\Data;
 
 use Str, Model;
 use Laracasts\Presenter\PresentableTrait;
@@ -16,7 +16,7 @@ class Post extends Model {
 
 	protected $touches = ['discussion'];
 
-	protected $presenter = 'Forums\Data\Presenters\PostPresenter';
+	protected $presenter = 'App\Data\Presenters\PostPresenter';
 
 	/*
 	|---------------------------------------------------------------------------
