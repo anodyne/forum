@@ -1,22 +1,25 @@
 {
 	"require": {
-		"laravel/framework": "5.0.*",
+		"php": ">=5.5.9",
+		"laravel/framework": "~5.2",
 		"league/commonmark": "*",
-		"laravelcollective/html": "~5.0.0",
+		"laravelcollective/html": "~5.2",
 		"ikimea/browser": "~1.0",
 		"laracasts/presenter": "~0.2",
 		"guzzlehttp/guzzle": "~4.2.0",
 		"zizaco/entrust": "dev-laravel-5",
 		"forxer/Gravatar": "~1.2",
-
-		"intervention/image": "~2.0.0",
-		"league/fractal": "*"
+		"intervention/image": "~2.0",
+		"dingo/api": "1.0.*@dev"
 	},
 	
 	"require-dev": {
+		"barryvdh/laravel-debugbar": "~2.0",
+		"fzaninotto/faker": "~1.4",
+		"mockery/mockery": "0.9.*",
 		"phpunit/phpunit": "~4.0",
-		"fzaninotto/faker": "~1",
-		"barryvdh/laravel-debugbar": "~2.0"
+		"symfony/css-selector": "2.8.*|3.0.*",
+		"symfony/dom-crawler": "2.8.*|3.0.*"
 	},
 	
 	"autoload": {
@@ -24,7 +27,8 @@
 			"database"
 		],
 		"psr-4": {
-			"Forums\\": "app/"
+			"App\\": "app/",
+			"Api\\V1\\": "app/Api/v1"
 		}
 	},
 
